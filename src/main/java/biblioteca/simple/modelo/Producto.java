@@ -20,8 +20,8 @@ public abstract class Producto {
     }
 
     protected int getId() { return id; }
-    protected String getTitulo() { return titulo; }
-    protected String getAnho() { return anho; }
+    public String getTitulo() { return titulo; }
+    public String getAnho() { return anho; }
     protected Formato getFormato() { return formato; }
 
     @Override
