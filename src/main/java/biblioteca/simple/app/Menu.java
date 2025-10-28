@@ -1,11 +1,9 @@
 package biblioteca.simple.app;
 
-import biblioteca.simple.contratos.Prestable;
 import biblioteca.simple.modelo.Producto;
 import biblioteca.simple.modelo.Usuario;
 import biblioteca.simple.servicios.Catalogo;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
