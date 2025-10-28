@@ -22,6 +22,8 @@ public class Libro extends Producto implements Prestable {
 
     public String getISBN() { return ISBN; }
     public String getAutor() { return autor; }
+    public boolean isPrestado() { return prestado; }
+    public Usuario getPrestadoA() { return prestadoA; }
 
     @Override public boolean estaPrestado() { return this.prestado; }
     @Override public void prestar(Usuario u) {
@@ -36,13 +38,6 @@ public class Libro extends Producto implements Prestable {
 
     @Override
     public String toString() {
-        return "Libro{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", anho='" + anho + '\'' +
-                ", formato=" + formato +
-                ", ISBN='" + ISBN + '\'' +
-                ", autor='" + autor + '\'' +
-                '}';
+        return "Libro #" + id + " " + titulo + " (" + anho + ") - " + formato + " ISBN='" + ISBN + '\'' + " [" + autor + "]";
     }
 }

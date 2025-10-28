@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
+    Scanner sc = new Scanner(System.in);
     private Catalogo catalogo;
     private List<Usuario> usuarios;
 
@@ -27,7 +28,6 @@ public class Menu {
     }
 
     public void lanzarMenu() {
-        Scanner sc = new Scanner(System.in);
         int opcion = -1;
         while (opcion != 6) {
             mostrarMenu();
@@ -60,10 +60,59 @@ public class Menu {
         }
     }
 
-    private void buscarPorTitulo() {}
-    private void buscarPorAnho() {}
-    private void prestar() {}
-    private void devolver() {}
+    private void buscarPorTitulo() {
+        String busqueda = leerTexto(sc, "Indica el título a buscar: ");
+        for (Producto p : catalogo.buscar(busqueda)) {
+            System.out.println(p);
+        }
+        System.out.println();
+    }
+
+    private void buscarPorAnho() {
+        int busqueda = leerEntero(sc, "Indica el año a buscar: ");
+        for (Producto p : catalogo.buscar(busqueda)) {
+            System.out.println(p);
+        }
+        System.out.println();
+    }
+
+    private void prestar() {
+        int i = 0;
+        int iProducto = 0;
+        for (Producto p : catalogo.listar()) {
+            if (!p.isPrestado()) {
+                i++;
+                System.out.printf("%d. %s%n", i, p);
+            }
+        }
+        iProducto = leerEntero(sc, "\nElige un producto: ") - 1;
+
+        i = 0;
+        int iUsuario = 0;
+        for (Usuario u : usuarios) {
+            i++;
+            System.out.printf("%d. %s%n", i, u.getNombre());
+        }
+        iUsuario= leerEntero(sc, "\nElige un usuario: ") - 1;
+
+        catalogo.listar().get(iProducto).prestar(usuarios.get(iUsuario));
+        System.out.printf("El producto '%s' ha sido prestado a %s.%n", catalogo.listar().get(iProducto).getTitulo(), usuarios.get(iUsuario).getNombre());
+    }
+    
+    private void devolver() {
+        int i = 0;
+        int iProducto = 0;
+        for (Producto p : catalogo.listar()) {
+            if (p.isPrestado()) {
+                i++;
+                System.out.printf("%d. %s%n", i, p);
+            }
+        }
+        iProducto = leerEntero(sc, "\nElige un producto: ") - 1;
+
+        catalogo.listar().get(iProducto).devolver();
+        System.out.printf("El producto '%s' ha sido devuelto.%n", catalogo.listar().get(iProducto).getTitulo());
+    }
 
     private static int leerEntero(Scanner sc, String prompt) {
         while (true) {
@@ -72,5 +121,10 @@ public class Menu {
             try { return Integer.parseInt(s); }
             catch (NumberFormatException e) { System.out.println("Número inválido."); }
         }
+    }
+
+    private static String leerTexto(Scanner sc, String prompt) {
+        System.out.print(prompt);
+        return sc.nextLine().trim();
     }
 }

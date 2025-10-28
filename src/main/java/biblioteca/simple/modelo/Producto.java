@@ -24,6 +24,10 @@ public abstract class Producto {
     public String getAnho() { return anho; }
     protected Formato getFormato() { return formato; }
 
+    public boolean isPrestado() { return false; }
+    public void prestar( Usuario u ) {}
+    public void devolver() {}
+
     @Override
     public String toString() {
         return "Producto{" +

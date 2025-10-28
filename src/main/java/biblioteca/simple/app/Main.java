@@ -10,8 +10,6 @@ public class Main {
     public static void main(String[] args) {
         // crear un objeto de tipo catálogo
         Catalogo catalogo = new Catalogo();
-        // crear lista de usuarios
-        List<Usuario> usuarios = new ArrayList<Usuario>();
 
         // carga de 4 libros + 4 pelis
         catalogo.alta(new Libro( "El nombre del viento", "2007", Formato.FISICO, "9788401352836", "Patrick Rothfuss"));
@@ -23,6 +21,9 @@ public class Main {
         catalogo.alta(new Pelicula( "The Matrix", "1999", Formato.DIGITAL, "Lana y Lilly Wachowski", 136));
         catalogo.alta(new Pelicula( "El Padrino", "1972", Formato.FISICO, "Francis Ford Coppola", 175));
         catalogo.alta(new Pelicula( "Parásitos", "2019", Formato.DIGITAL, "Bong Joon-ho", 132));
+
+        // crear lista de usuarios
+        List<Usuario> usuarios = new ArrayList<Usuario>();
 
         // carga de 4 usuarios
         usuarios.add(new Usuario(1, "Alba"));

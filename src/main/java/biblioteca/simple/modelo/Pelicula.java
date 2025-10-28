@@ -22,6 +22,8 @@ public class Pelicula extends Producto implements Prestable {
 
     public String getDirector() { return director; }
     public int getMinutosDuracion() { return minutosDuracion; }
+    public boolean isPrestado() { return prestado; }
+    public Usuario getPrestadoA() { return prestadoA; }
 
     @Override public boolean estaPrestado() { return this.prestado; }
     @Override public void prestar(Usuario u) {
@@ -36,13 +38,6 @@ public class Pelicula extends Producto implements Prestable {
 
     @Override
     public String toString() {
-        return "Pelicula{" +
-                "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", anho='" + anho + '\'' +
-                ", formato=" + formato +
-                ", director='" + director + '\'' +
-                ", minutosDuracion=" + minutosDuracion +
-                '}';
+        return "Pelicula #" + id + " " + titulo + " (" + anho + ") - " + formato + " [" + director + "] - " + minutosDuracion + " min.";
     }
 }
