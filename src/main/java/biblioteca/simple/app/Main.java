@@ -165,6 +165,8 @@ public class Main {
 
         Prestable pPrestable = (Prestable) pEncontrado;
         pPrestable.prestar(u1);
+
+        System.out.println("Prestado correctamente");
     }
     
     public static void devolver() {
