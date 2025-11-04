@@ -19,7 +19,7 @@ public abstract class Producto {
         this.formato = formato;
     }
 
-    protected int getId() { return id; }
+    public int getId() { return id; }
     public String getTitulo() { return titulo; }
     public String getAnho() { return anho; }
     protected Formato getFormato() { return formato; }

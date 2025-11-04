@@ -103,13 +103,104 @@ public class Main {
         catalogo.buscar(a).forEach(p -> System.out.println("- " + p));
     }
 
+    private static void listarUsuarios(){
+        if (usuarios.isEmpty()) {
+            System.out.println("No hay usuarios registrados");
+        }
+        System.out.println("Lista usuarios");
+        usuarios.forEach(u ->
+                        System.out.println("- Codigo: " + u.getId() + " | Nombre: " + u.getNombre())
+        );
+    }
+
+    public static Usuario getUsuarioPorCodigo(int id) {
+        return  usuarios.stream()
+                .filter(u -> u.getId() == id)
+                .findFirst()
+                .orElse(null);
+    }
+
     private static void prestar() {
         List<Producto> disponibles = catalogo.listar().stream()
-            .filter(p -> p instanceof Prestable pN && !pN.estaPrestado())
-            .collect(Collectors.toList());
+                .filter(p -> p instanceof Prestable pN && !pN.estaPrestado())
+                .collect(Collectors.toList());
+
+        if (disponibles.isEmpty()) {
+            System.out.println("No hay productos para prestar");
+            return;
+        }
+
+        System.out.println("-- PRODUCTOS DISPONIBLES --");
+        disponibles.forEach(p -> System.out.println("- ID: " + p.getId() + " | " + p));
+
+        System.out.println("Escribe el id del producto: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        Producto pEncontrado = disponibles.stream()
+                .filter(p -> {
+                    try {
+                        return p.getId() == id;
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                }).findFirst()
+                .orElse(null);
+
+        if (pEncontrado == null) {
+            System.out.println("El id no existe");
+            return;
+        }
+
+        listarUsuarios();
+
+        System.out.println("Ingresa código de usuario");
+        int cUsuario = sc.nextInt();
+        sc.nextLine();
+        Usuario u1 = getUsuarioPorCodigo(cUsuario);
+
+        if (u1 == null){
+            System.out.println("Usuario no encontrado");
+        }
+
+        Prestable pPrestable = (Prestable) pEncontrado;
+        pPrestable.prestar(u1);
     }
     
-    private static void devolver() {
-        
+    public static void devolver() {
+        List<Producto> pPrestados = catalogo.listar().stream()
+                .filter(p -> p instanceof Prestable pN && pN.estaPrestado())
+                .collect(Collectors.toList());
+
+        if (pPrestados.isEmpty()) {
+            System.out.println("No hay productos para prestar");
+            return;
+        }
+
+        System.out.println("-- PRODUCTOS PRESTADOS --");
+        pPrestados.forEach(p -> System.out.println("- ID: " + p.getId() + " | " + p));
+
+        System.out.println("Escribe el id del producto: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        Producto pEncontrado = pPrestados.stream()
+                .filter(p -> {
+                    try {
+                        return p.getId() == id;
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
+                }).findFirst()
+                .orElse(null);
+
+        if (pEncontrado == null) {
+            System.out.println("El id no existe");
+            return;
+        }
+
+        Prestable pPrestable = (Prestable) pEncontrado;
+        pPrestable.devolver();
+        System.out.println("Devuelto correctamente");
     }
 }
